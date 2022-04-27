@@ -20,6 +20,8 @@ const reducer = (state, action) => {
                 ...state,
                 signupWindow: action.payload
             }
+        default:
+            return state
     }
 
 }
@@ -28,13 +30,9 @@ const reducer = (state, action) => {
 export default function LocalContextProvider(props) {
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const value = {
-        loginWindow: state.loginWindow,
-        signupWindow: state.signupWindow,
-        dispatch
-    }
+
     return (
-        <LocalContext.Provider value={value}>
+        <LocalContext.Provider value={{ loginWindow: state.loginWindow, signupWindow: state.signupWindow, dispatch }}>
             {props.children}
         </LocalContext.Provider>
     )

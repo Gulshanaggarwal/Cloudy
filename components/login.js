@@ -8,11 +8,9 @@ import { TextField } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import appwrite from "../appwrite/appwrite"
-import { useRouter } from 'next/router'
 
 export default function Login() {
     const { loginWindow, dispatch } = useContext(LocalContext);
-    const router = useRouter();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,12 +24,12 @@ export default function Login() {
         }
 
         try {
-            const response = await appwrite.account.createSession(email, password);
+            await appwrite.account.createSession(email, password);
             dispatch({
-                type: "setLoginAvailability",
+                type: "setLoginVisibility",
                 payload: null
             })
-            router.push("/dashboard");
+            window.location.replace("/dashboard")
 
         } catch (error) {
             console.log(error);

@@ -3,17 +3,43 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { LocalContext } from '../contexts/LocalContextProvider';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Login from './login';
 import Signup from './signup';
-import useCurrentUser from '../hooks/currentUser';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useRouter } from 'next/router'
+import appwrite from "../appwrite/appwrite"
+import Link from 'next/link'
+import { AuthContext } from '../contexts/AuthContext';
+
+
 
 export default function Navbar() {
 
     const { dispatch } = useContext(LocalContext);
-    const isUser = useCurrentUser();
+    const isUser = useContext(AuthContext);
+    const router = useRouter();
 
-    console.log(isUser);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleLogout = async () => {
+
+        try {
+            await appwrite.account.deleteSession("current");
+            router.replace("/");
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
     return (
         <Box sx={{
             display: 'flex',
@@ -21,6 +47,7 @@ export default function Navbar() {
             backgroundColor: 'common.black',
             width: '100%',
             padding: '1rem',
+            flex: '0 1 auto'
         }}>
             <Typography variant="h4" component="h1" sx={{ color: 'common.white' }}>G-drive</Typography>
             {
@@ -38,18 +65,38 @@ export default function Navbar() {
             {
                 isUser && <Box sx={{
                     borderRadius: "50%",
-                    padding: '0.5rem 0',
+                    padding: '0.3rem 0',
                     textAlign: 'center',
                     backgroundColor: 'common.white',
                     width: '50px',
                     height: '50px',
                     cursor: 'pointer',
                     color: 'primary.main',
-                }}>
+                    position: 'relative'
+                }} onClick={handleClick}>
                     <Typography variant="h4" component="h4">
                         {isUser.name[0]}
                     </Typography>
                 </Box>
+            }
+            {
+                isUser && <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem><Link href="/dashboard">
+                        <a>Dashboard</a>
+                    </Link></MenuItem>
+                    <MenuItem><Link href="/myAccount">
+                        <a>My Account</a>
+                    </Link></MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
             }
             <Login />
             <Signup />
