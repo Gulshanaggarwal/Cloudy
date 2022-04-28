@@ -3,6 +3,7 @@ import AddFile from "./addFile";
 import AddFolder from "./addFolder";
 import BreadCrumb from "./breadCrumb";
 import { Box } from "@mui/system";
+import AddFolderModal from "./AddFolderModal";
 
 
 
@@ -21,6 +22,7 @@ export default function FileFolderDisplay() {
                     Create a Folder or Upload a File to get started
                 </Typography>
             </Box>
+            <AddFolderModal />
         </Grid>
     )
 }
