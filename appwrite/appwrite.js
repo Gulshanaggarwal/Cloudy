@@ -3,8 +3,8 @@ import { Appwrite } from 'appwrite';
 const appwrite = new Appwrite();
 
 appwrite
-    .setEndpoint('http://localhost/v1') // Your Appwrite Endpoint
-    .setProject('gulshan333') // Your project ID
+    .setEndpoint(process.env.APPWRITE_PROJECTID) // Your Appwrite Endpoint
+    .setProject(process.env.APPWRITE_ENDPOINT) // Your project ID
     ;
 
 export default appwrite;
