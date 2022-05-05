@@ -13,14 +13,14 @@ const removeToast = (id, toastDispatch) => {
 }
 
 export const AddToast = (type, text, toastDispatch) => {
-
     const id = nanoid();
     toastDispatch({
         type: "ADD",
         payload: { id, type, text }
     })
+
     setTimeout(() => {
-        removeToast(id, toastDispatch);
+        removeToast(id, toastDispatch)
     }, 3000)
 
 }

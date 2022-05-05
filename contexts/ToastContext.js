@@ -28,7 +28,9 @@ const reducer = (state, action) => {
 
 export default function ToastContextProvider(props) {
 
-    const [toasts, toastDispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const toasts = state;
+    const toastDispatch = dispatch;
 
     return (
         <ToastContext.Provider value={[toasts, toastDispatch]}>

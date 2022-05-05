@@ -51,8 +51,8 @@ export default function Signup() {
 
         try {
             handleLoader(dispatch, true);
-            await appwrite.account.create('unique()', email, password, fullName);
-            AddToast("success", "Account Created Successfully!", toastDispatch);
+            const response = await appwrite.account.create('unique()', email, password, fullName);
+            //AddToast("success", "Account Created Successfully!", toastDispatch);
 
         } catch (error) {
             console.log(error);
