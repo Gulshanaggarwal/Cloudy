@@ -7,24 +7,61 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { LocalContext } from '../contexts/LocalContextProvider';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { TextField, Typography } from '@mui/material';
+import { AuthContext } from '../contexts/AuthContext';
+import { ROOT_FOLDER } from '../hooks/useFolder';
+import appwrite from '../appwrite/appwrite';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import db from '../firebase/firebase';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AddFolderModal() {
+export default function AddFolderModal({ currentFolder }) {
     const { addFolderModal, dispatch } = useContext(LocalContext);
+    const [folderName, setFolderName] = useState("");
+
+    const isUser = useContext(AuthContext);
 
     const handleClose = () => {
         dispatch({
             type: "setFolderModalVisibility",
-            payload: null
+            payload: false
         })
     }
 
-    const handleCreateFolder = () => {
+    const handleCreateFolder = async () => {
+        if (currentFolder === null) return;
+
+        if (folderName.trim() === "") {
+            alert("Enter a valid folder name");
+        }
+
+        const path = currentFolder.path.length === 0 ? [] : [{ ...currentFolder.path }];
+
+        if (currentFolder !== ROOT_FOLDER) {
+            path.push({ folderName: currentFolder.folderName, id: currentFolder.id })
+        }
+
+        try {
+            console.log(currentFolder);
+            await addDoc(collection(db, "folders"), {
+                folderName,
+                parentId: currentFolder.id,
+                userId: isUser.$id,
+                path,
+                createdAt: serverTimestamp()
+            })
+            alert("success");
+            handleClose();
+
+        } catch (error) {
+            console.log(error);
+            alert("couldn't create a folder")
+        }
+
 
     }
 
@@ -48,6 +85,7 @@ export default function AddFolderModal() {
                         variant="filled"
                         size="small"
                         placeholder='Folder Name'
+                        onChange={(e) => setFolderName(e.target.value)}
 
                     />
                 </DialogContent>

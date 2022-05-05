@@ -7,6 +7,9 @@ import getCurrentUser, { AuthContext } from '../contexts/AuthContext';
 import { useState, useEffect } from 'react';
 import Footer from '../components/footer';
 import { Box } from '@mui/material';
+import ToastContextProvider from '../contexts/ToastContext';
+import Toast from '../components/resuables/Toast';
+import Loader from '../components/resuables/loader';
 
 
 const theme = createTheme({
@@ -22,6 +25,9 @@ const theme = createTheme({
     },
     modal: {
       main: 'rgba(0,0,0,0.4)'
+    },
+    zIndex: {
+      backdrop: '1350'
     }
   },
 });
@@ -45,17 +51,21 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
 
-  return <AuthContext.Provider value={isUser}>
-    <LocalContextProvider>
-      <ThemeProvider theme={theme}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-          <Navbar />
-          <Component {...pageProps} />
-          <Footer />
-        </Box>
-      </ThemeProvider>
-    </LocalContextProvider>
-  </AuthContext.Provider>
+  return <ToastContextProvider>
+    <AuthContext.Provider value={isUser}>
+      <LocalContextProvider>
+        <ThemeProvider theme={theme}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+            <Navbar />
+            <Component {...pageProps} />
+            <Footer />
+            <Loader />
+            <Toast />
+          </Box>
+        </ThemeProvider>
+      </LocalContextProvider>
+    </AuthContext.Provider>
+  </ToastContextProvider>
 }
 
 export default MyApp

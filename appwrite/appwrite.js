@@ -3,8 +3,7 @@ import { Appwrite } from 'appwrite';
 const appwrite = new Appwrite();
 
 appwrite
-    .setEndpoint(process.env.APPWRITE_PROJECTID) // Your Appwrite Endpoint
-    .setProject(process.env.APPWRITE_ENDPOINT) // Your project ID
-    ;
+    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT) // Your Appwrite Endpoint
+    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECTID) // Your project ID;
 
 export default appwrite;

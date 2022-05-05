@@ -5,7 +5,8 @@ export const LocalContext = createContext();
 const initialState = {
     loginWindow: null,
     signupWindow: null,
-    addFolderModal: null
+    addFolderModal: false,
+    loader: false
 }
 
 const reducer = (state, action) => {
@@ -28,6 +29,11 @@ const reducer = (state, action) => {
                 addFolderModal: action.payload
             }
             break;
+        case "setLoader":
+            return {
+                ...state,
+                loader: action.payload
+            }
         default:
             return state
     }
@@ -42,6 +48,7 @@ export default function LocalContextProvider(props) {
         loginWindow: state.loginWindow,
         signupWindow: state.signupWindow,
         addFolderModal: state.addFolderModal,
+        loader: state.loader,
         dispatch
     }
 

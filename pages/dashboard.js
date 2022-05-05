@@ -22,7 +22,7 @@ export default function Dashboard() {
     return isUser && (
         <Grid container sx={{ flex: '1 1 auto', }} >
             <LeftNavbar />
-            <FileFolderDisplay />
+            <FileFolderDisplay folderId={null} />
         </ Grid>
     )
 }
