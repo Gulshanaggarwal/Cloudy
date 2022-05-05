@@ -1,8 +1,7 @@
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import FileFolderDisplay from "../components/fileFolderDisplay";
-import LeftNavbar from "../components/leftNavbar";
 import { AuthContext } from "../contexts/AuthContext";
 
 
@@ -20,9 +19,8 @@ export default function Dashboard() {
 
 
     return isUser && (
-        <Grid container sx={{ flex: '1 1 auto', }} >
-            <LeftNavbar />
+        <Box sx={{ flex: '1 1 auto', }} >
             <FileFolderDisplay folderId={null} />
-        </ Grid>
+        </ Box>
     )
 }

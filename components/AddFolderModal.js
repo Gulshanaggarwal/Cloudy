@@ -14,6 +14,8 @@ import { ROOT_FOLDER } from '../hooks/useFolder';
 import appwrite from '../appwrite/appwrite';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import db from '../firebase/firebase';
+import { AddToast } from './resuables/toast';
+import { ToastContext } from '../contexts/ToastContext';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -21,22 +23,32 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AddFolderModal({ currentFolder }) {
     const { addFolderModal, dispatch } = useContext(LocalContext);
+    const [, toastDispatch] = useContext(ToastContext);
+
     const [folderName, setFolderName] = useState("");
+
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
+
 
     const isUser = useContext(AuthContext);
 
     const handleClose = () => {
-        dispatch({
+        setError(false);
+        return dispatch({
             type: "setFolderModalVisibility",
             payload: false
         })
     }
 
     const handleCreateFolder = async () => {
+        setError(false);
         if (currentFolder === null) return;
 
         if (folderName.trim() === "") {
-            alert("Enter a valid folder name");
+            setError(true);
+            setErrorMessage("Folder name cannot be empty");
+            return;
         }
 
         const path = currentFolder.path.length === 0 ? [] : [{ ...currentFolder.path }];
@@ -46,7 +58,10 @@ export default function AddFolderModal({ currentFolder }) {
         }
 
         try {
-            console.log(currentFolder);
+            dispatch({
+                type: "setLoader",
+                payload: true
+            })
             await addDoc(collection(db, "folders"), {
                 folderName,
                 parentId: currentFolder.id,
@@ -54,13 +69,20 @@ export default function AddFolderModal({ currentFolder }) {
                 path,
                 createdAt: serverTimestamp()
             })
-            alert("success");
+            AddToast("success", "Folder Created Successfully!", toastDispatch);
+            dispatch({
+                type: "setFolderModalVisibility",
+                payload: false
+            })
             handleClose();
 
         } catch (error) {
-            console.log(error);
-            alert("couldn't create a folder")
+            AddToast("error", "Error! couldn't create folder", toastDispatch);
         }
+        dispatch({
+            type: "setLoader",
+            payload: false
+        })
 
 
     }
@@ -81,11 +103,12 @@ export default function AddFolderModal({ currentFolder }) {
                     <TextField
                         hiddenLabel
                         id="filled-hidden-label-small"
-                        defaultValue="Small"
                         variant="filled"
                         size="small"
                         placeholder='Folder Name'
                         onChange={(e) => setFolderName(e.target.value)}
+                        error={error}
+                        helperText={error ? errorMessage : false}
 
                     />
                 </DialogContent>

@@ -25,18 +25,20 @@ export const AddToast = (type, text, toastDispatch) => {
 
 }
 
-export default function Toast() {
+export default function ToastBar() {
     const [toasts] = useContext(ToastContext);
+    const vertical = "bottom";
+    const horizontal = "right";
+
 
 
     return toasts.length > 0 && toasts.map((ele) => (
         <Snackbar
-            anchorOrigin={{ bottom, right }}
-            open={open}
+            anchorOrigin={{ vertical, horizontal }}
+            open={true}
             key={ele.id}>
             <Alert severity={ele.type} sx={{ width: '100%' }}>
                 {ele.text}
             </Alert>
-        </Snackbar>
-    ))
+        </Snackbar>))
 }

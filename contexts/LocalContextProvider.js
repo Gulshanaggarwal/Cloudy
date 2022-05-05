@@ -6,7 +6,8 @@ const initialState = {
     loginWindow: null,
     signupWindow: null,
     addFolderModal: false,
-    loader: false
+    loader: false,
+    drawer: false
 }
 
 const reducer = (state, action) => {
@@ -34,6 +35,11 @@ const reducer = (state, action) => {
                 ...state,
                 loader: action.payload
             }
+        case "handleDrawer":
+            return {
+                ...state,
+                drawer: action.payload
+            }
         default:
             return state
     }
@@ -49,6 +55,7 @@ export default function LocalContextProvider(props) {
         signupWindow: state.signupWindow,
         addFolderModal: state.addFolderModal,
         loader: state.loader,
+        drawer: state.drawer,
         dispatch
     }
 

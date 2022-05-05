@@ -40,7 +40,7 @@ export default function AddFile() {
             <Box sx={{ padding: '0.5rem', border: 1, borderRadius: 2, cursor: 'pointer' }}>
                 <label htmlFor="contained-button-file">
                     <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={handleFileCapture} />
-                    <IconButton color="primary" aria-label="upload picture" component="span">
+                    <IconButton sx={{ color: 'common.black' }} aria-label="upload picture" component="span">
                         <UploadFileIcon />
                     </IconButton>
                 </label>

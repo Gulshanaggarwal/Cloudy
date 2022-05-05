@@ -8,8 +8,9 @@ import { useState, useEffect } from 'react';
 import Footer from '../components/footer';
 import { Box } from '@mui/material';
 import ToastContextProvider from '../contexts/ToastContext';
-import Toast from '../components/resuables/Toast';
+import ToastBar from '../components/resuables/Toast';
 import Loader from '../components/resuables/loader';
+import Drawer from '../components/drawer';
 
 
 const theme = createTheme({
@@ -60,7 +61,8 @@ function MyApp({ Component, pageProps }) {
             <Component {...pageProps} />
             <Footer />
             <Loader />
-            <Toast />
+            <ToastBar />
+            <Drawer />
           </Box>
         </ThemeProvider>
       </LocalContextProvider>

@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import appwrite from "../appwrite/appwrite"
 import Link from 'next/link'
 import { AuthContext } from '../contexts/AuthContext';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
 
 
@@ -40,6 +41,13 @@ export default function Navbar() {
 
         }
     }
+
+    const callDrawer = () => {
+        dispatch({
+            type: "handleDrawer",
+            payload: true
+        })
+    }
     return (
         <Box sx={{
             display: 'flex',
@@ -49,7 +57,10 @@ export default function Navbar() {
             padding: '1rem',
             flex: '0 1 auto'
         }}>
-            <Typography variant="h4" component="h1" sx={{ color: 'common.white' }}>G-drive</Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem' }}>
+                {isUser && <MenuOutlinedIcon onClick={callDrawer} sx={{ color: 'primary.main', cursor: 'pointer' }} fontSize="large" />}
+                <Typography variant="h4" component="h1" sx={{ color: 'common.white' }}>G-drive</Typography>
+            </Box>
             {
                 !isUser && <Stack direction="row" spacing={2}>
                     <Button variant="text" onClick={() => dispatch({
