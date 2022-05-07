@@ -11,6 +11,7 @@ import ToastContextProvider from '../contexts/ToastContext';
 import ToastBar from '../components/resuables/Toast';
 import Loader from '../components/resuables/loader';
 import Drawer from '../components/drawer';
+import Preview from '../components/Preview';
 
 
 const theme = createTheme({
@@ -25,7 +26,8 @@ const theme = createTheme({
       main: "#ebe9ed"
     },
     modal: {
-      main: 'rgba(0,0,0,0.4)'
+      main: 'rgba(0,0,0,0.4)',
+      dark: 'rgba(0,0,0,0.8)'
     },
     zIndex: {
       backdrop: '1350'
@@ -63,6 +65,7 @@ function MyApp({ Component, pageProps }) {
             <Loader />
             <ToastBar />
             <Drawer />
+            <Preview />
           </Box>
         </ThemeProvider>
       </LocalContextProvider>

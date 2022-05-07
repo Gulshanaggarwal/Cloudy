@@ -7,7 +7,8 @@ const initialState = {
     signupWindow: null,
     addFolderModal: false,
     loader: false,
-    drawer: false
+    drawer: false,
+    preview: false
 }
 
 const reducer = (state, action) => {
@@ -40,6 +41,11 @@ const reducer = (state, action) => {
                 ...state,
                 drawer: action.payload
             }
+        case "handlePreview":
+            return {
+                ...state,
+                preview: action.payload
+            }
         default:
             return state
     }
@@ -56,6 +62,7 @@ export default function LocalContextProvider(props) {
         addFolderModal: state.addFolderModal,
         loader: state.loader,
         drawer: state.drawer,
+        preview: state.preview,
         dispatch
     }
 

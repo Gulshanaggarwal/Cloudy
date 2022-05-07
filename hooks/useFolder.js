@@ -2,6 +2,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useEffect, useReducer, useContext } from "react";
 import db from "../firebase/firebase";
 import { collection, query, where, onSnapshot, orderBy, doc, getDoc } from "firebase/firestore";
+import appwrite from "../appwrite/appwrite";
 
 
 
@@ -115,7 +116,34 @@ export default function useFolder(folderId, folder) {
 
             return () => unsubscribe();
         }
-    })
+    }, [folderId, isUser])
+
+    // setChild Files
+
+    useEffect(() => {
+        if (isUser) {
+            const q = query(collection(db, "files"), where("folderId", "==", folderId), where("userId", "==", isUser.$id), orderBy("createdAt"));
+
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const documents = [];
+                querySnapshot.forEach((doc) => {
+                    documents.push({ id: doc.id, ...doc.data() });
+                });
+                documents.forEach((file) => {
+                    const result = appwrite.storage.getFilePreview(process.env.NEXT_PUBLIC_APPWRITE_STORAGE_BUCKETID, file.fileId);
+                    console.log(result);
+                    file.href = result.href
+                })
+                dispatch({
+                    type: "SET_CHILD_FILES",
+                    payload: { childFiles: documents }
+                })
+
+            });
+
+            return () => unsubscribe();
+        }
+    }, [folderId, isUser])
 
 
     return state;

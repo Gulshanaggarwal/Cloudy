@@ -55,7 +55,7 @@ export default function Navbar() {
             backgroundColor: 'common.black',
             width: '100%',
             padding: '1rem',
-            flex: '0 1 auto'
+            flex: '0 1 auto',
         }}>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem' }}>
                 {isUser && <MenuOutlinedIcon onClick={callDrawer} sx={{ color: 'primary.main', cursor: 'pointer' }} fontSize="large" />}
