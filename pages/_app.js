@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import Footer from '../components/footer';
 import { Box } from '@mui/material';
 import ToastContextProvider from '../contexts/ToastContext';
-import ToastBar from '../components/resuables/Toast';
+import ToastBar from '../components/resuables/toast';
 import Loader from '../components/resuables/loader';
 import Drawer from '../components/drawer';
 import Preview from '../components/Preview';

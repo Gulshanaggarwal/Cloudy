@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import { Button } from "@mui/material";
 import appwrite from "../appwrite/appwrite";
 import { ToastContext } from "../contexts/ToastContext";
-import { AddToast } from "./resuables/Toast";
+import { AddToast } from "./resuables/toast";
 import { handleLoader } from "./resuables/loader";
 
 

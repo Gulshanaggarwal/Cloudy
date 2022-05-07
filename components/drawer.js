@@ -9,7 +9,7 @@ import StarRateSharpIcon from '@mui/icons-material/StarRateSharp';
 
 export default function Drawer() {
 
-    const { drawer: open, dispatch } = useContext(LocalContext);
+    const { drawer, dispatch } = useContext(LocalContext);
 
     const closeDrawer = (e) => {
         if (
@@ -28,7 +28,7 @@ export default function Drawer() {
     return (
         <SwipeableDrawer
             anchor="left"
-            open={open}
+            open={drawer}
             onClose={closeDrawer}
         >
             <List>

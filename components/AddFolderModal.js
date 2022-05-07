@@ -11,7 +11,6 @@ import { useContext, useState } from 'react';
 import { TextField, Typography } from '@mui/material';
 import { AuthContext } from '../contexts/AuthContext';
 import { ROOT_FOLDER } from '../hooks/useFolder';
-import appwrite from '../appwrite/appwrite';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import db from '../firebase/firebase';
 import { AddToast } from './resuables/toast';

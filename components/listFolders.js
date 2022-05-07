@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import FolderBtn from "./FolderBtn";
+import FolderBtn from "./folderBtn";
 
 export default function ListFolders({ childFolders }) {
     return childFolders.length > 0 && (
