@@ -6,6 +6,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import ArticleIcon from '@mui/icons-material/Article';
 import { useState, useContext } from "react";
 import { LocalContext } from "../contexts/LocalContextProvider";
+import { handleContextMenu } from "./deleteMenu";
 
 
 export default function File({ file }) {
@@ -17,10 +18,14 @@ export default function File({ file }) {
 
     return <Box sx={{
         border: 1, borderRadius: 2, cursor: 'pointer', position: 'relative'
-    }} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => dispatch({
-        type: 'handlePreview',
-        payload: file
-    })} >
+    }}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)} onClick={() => dispatch({
+            type: 'handlePreview',
+            payload: file
+        })}
+        onContextMenu={(e) => handleContextMenu(e, "FILE", file.fileId, dispatch)}
+    >
         <Image
             src={file.href}
             alt={file.fileName}

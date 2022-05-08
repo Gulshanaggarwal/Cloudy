@@ -7,6 +7,7 @@ import AddFolderModal from "./addFolderModal";
 import useFolder from "../hooks/useFolder";
 import ListFolders from "./listFolders";
 import File from "./file";
+import DeleteMenu from "./deleteMenu";
 
 
 
@@ -44,6 +45,7 @@ export default function FileFolderDisplay({ folderId }) {
                 </Box>
             }
             <AddFolderModal currentFolder={folderState.folder} />
+            <DeleteMenu />
         </Grid>
     )
 }

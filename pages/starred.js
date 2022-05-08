@@ -1,8 +1,16 @@
+import { Box, Typography } from "@mui/material";
+
 
 
 
 export default function Starred() {
+
+
+
     return (
-        <h1>Hello Starred</h1>
+        <Box>
+            <Typography component="h5" variant="h6">Recent</Typography>
+
+        </Box>
     )
 }

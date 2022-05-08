@@ -11,7 +11,7 @@ import ToastContextProvider from '../contexts/ToastContext';
 import ToastBar from '../components/resuables/toast';
 import Loader from '../components/resuables/loader';
 import Drawer from '../components/drawer';
-import Preview from '../components/Preview';
+import Preview from '../components/preview';
 
 
 const theme = createTheme({

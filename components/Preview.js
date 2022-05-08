@@ -8,12 +8,17 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import ImageIcon from '@mui/icons-material/Image';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import ArticleIcon from '@mui/icons-material/Article';
+import { AuthContext } from "../contexts/AuthContext";
+import ImageComp from "./image";
+import appwrite from "../appwrite/appwrite";
+import MoreActions from "./moreActions";
 
 
 
 export default function Preview() {
 
     const { preview, dispatch } = useContext(LocalContext);
+    const isUser = useContext(AuthContext);
 
     const handleClose = () => {
         dispatch({
@@ -23,9 +28,25 @@ export default function Preview() {
 
     }
 
-    return preview && (
+    const handleDownload = (e, fileId) => {
+
+        const result = appwrite.storage.getFileDownload(process.env.NEXT_PUBLIC_APPWRITE_STORAGE_BUCKETID, fileId);
+        window.open(result.href)
+    }
+
+
+    const handle3dotClick = (e) => {
+        dispatch({
+            type: "handleMoreActions",
+            payload: e.currentTarget
+        })
+    }
+
+
+
+    return isUser && preview && (
         <Box sx={{ position: 'fixed', width: '100%', height: '100%', backgroundColor: 'modal.dark', left: '0', right: '0', }}>
-            <Box sx={{ position: 'fixed', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 0.5rem' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0 1rem' }}>
                     <Tooltip title="Close" placement="bottom" arrow>
                         <Box onClick={handleClose} sx={{
@@ -60,12 +81,12 @@ export default function Preview() {
                         }
                     }}>
                         <Tooltip title="Download" placement="bottom" arrow>
-                            <Box>
+                            <Box onClick={(e) => handleDownload(e, preview.fileId)}>
                                 <FileDownloadOutlinedIcon fontSize="medium" sx={{ color: 'common.white', cursor: 'pointer' }} />
                             </Box>
                         </Tooltip>
                     </Box>
-                    <Box>
+                    <Box onClick={handle3dotClick}>
                         <Tooltip title="More actions" placement="bottom" arrow>
                             <Box sx={{
                                 padding: '0.5rem',
@@ -81,7 +102,12 @@ export default function Preview() {
                 </Box>
             </Box>
             <Box>
+                {(preview.type === "image/jpeg" || preview.type === "image/jpg" || preview.type === "image/png" || preview.type === "image/gif") && <ImageComp url={preview.href} alt={preview.fileName} />}
+                {
+                    (preview.type === "application/pdf" || preview.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || preview.type === "application/msword") && <Typography fontSize="large" sx={{ color: 'primary.main', textAlign: 'center' }} variant="p" component="h4">Sorry ! preview is not available for documents</Typography>
+                }
             </Box>
+            <MoreActions file={preview} />
         </Box>
     )
 }

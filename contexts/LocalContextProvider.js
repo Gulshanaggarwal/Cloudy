@@ -8,7 +8,10 @@ const initialState = {
     addFolderModal: false,
     loader: false,
     drawer: false,
-    preview: false
+    preview: false,
+    moreActions: null,
+    deletee: null
+
 }
 
 const reducer = (state, action) => {
@@ -46,6 +49,16 @@ const reducer = (state, action) => {
                 ...state,
                 preview: action.payload
             }
+        case "handleMoreActions":
+            return {
+                ...state,
+                moreActions: action.payload
+            }
+        case "handleDeleteeLayer":
+            return {
+                ...state,
+                deletee: action.payload
+            }
         default:
             return state
     }
@@ -63,6 +76,8 @@ export default function LocalContextProvider(props) {
         loader: state.loader,
         drawer: state.drawer,
         preview: state.preview,
+        moreActions: state.moreActions,
+        deletee: state.deletee,
         dispatch
     }
 

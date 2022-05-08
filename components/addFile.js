@@ -49,7 +49,8 @@ export default function AddFile({ currentFolder }) {
                     userId: isUser.$id,
                     folderId: currentFolder.id,
                     type: file.type,
-                    createdAt: serverTimestamp()
+                    createdAt: serverTimestamp(),
+                    bookmark: false
                 })
             } catch (error) {
                 console.log(error);
