@@ -2,6 +2,11 @@ import { Menu, MenuItem } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { LocalContext } from "../contexts/LocalContextProvider";
 import { useContext } from "react";
+import { doc, deleteDoc, where } from "firebase/firestore";
+import db from "../firebase/firebase"
+import { handleLoader } from "./resuables/loader";
+import { ToastContext } from "../contexts/ToastContext";
+import { AddToast } from "../components/resuables/toast"
 
 
 
@@ -28,12 +33,22 @@ export const handleContextMenu = (e, type, id, dispatch) => {
 }
 
 
+const hideDeleteMenu = (dispatch) => {
+    dispatch({
+        type: "handleDeleteeLayer",
+        payload: null
+    })
+
+}
+
+
 
 
 
 export default function DeleteMenu() {
 
     const { deletee, dispatch } = useContext(LocalContext);
+    const [, toastDispatch] = useContext(ToastContext);
     console.log(deletee);
 
     const handleClose = () => {
@@ -41,6 +56,38 @@ export default function DeleteMenu() {
             type: "handleDeleteeLayer",
             payload: null
         })
+    }
+
+    const handleDeleteItem = async (deletee) => {
+        hideDeleteMenu(dispatch);
+        handleLoader(dispatch, true);
+
+        // If file
+        if (deletee && deletee.fileId) {
+            try {
+                await deleteDoc(doc(db, "files", where("fileId", "==", deletee.fileId)));
+                AddToast("success", "File deleted successfully", toastDispatch);
+            } catch (error) {
+                console.log(error);
+                AddToast("error", "Couldn't delete try again!", toastDispatch);
+            }
+        }
+
+        // If Folder
+        if (deletee && deletee.folderId) {
+            try {
+                await deleteDoc(doc(db, "folders", deletee.folderId))
+                AddToast("success", "Folder deleted Successfully", toastDispatch);
+            } catch (error) {
+                console.log(error);
+                AddToast("error", "Couldn't delete try again!", toastDispatch);
+            }
+        }
+        return handleLoader(dispatch, false);
+
+
+
+
     }
 
     return deletee && (
@@ -51,7 +98,7 @@ export default function DeleteMenu() {
             MenuListProps={{
                 'aria-labelledby': 'basic-button',
             }}>
-            <MenuItem sx={{ gap: '0.5rem' }}>
+            <MenuItem onClick={() => handleDeleteItem(deletee)} sx={{ gap: '0.5rem' }}>
                 <DeleteIcon />
                 Delete
             </MenuItem>
