@@ -10,7 +10,6 @@ import { Box } from '@mui/material';
 import ToastContextProvider from '../contexts/ToastContext';
 import ToastBar from '../components/resuables/toast';
 import Loader from '../components/resuables/loader';
-import Drawer from '../components/drawer';
 import Preview from '../components/preview';
 
 
@@ -64,7 +63,6 @@ function MyApp({ Component, pageProps }) {
             <Footer />
             <Loader />
             <ToastBar />
-            <Drawer />
             <Preview />
           </Box>
         </ThemeProvider>

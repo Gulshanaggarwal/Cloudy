@@ -65,7 +65,7 @@ export default function DeleteMenu() {
         // If file
         if (deletee && deletee.fileId) {
             try {
-                await deleteDoc(doc(db, "files", where("fileId", "==", deletee.fileId)));
+                await deleteDoc(doc(db, "files", where('fileId', "==", deletee.fileId)));
                 AddToast("success", "File deleted successfully", toastDispatch);
             } catch (error) {
                 console.log(error);

@@ -12,6 +12,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import ImageComp from "./image";
 import appwrite from "../appwrite/appwrite";
 import MoreActions from "./moreActions";
+import Details from "./details";
 
 
 
@@ -108,6 +109,7 @@ export default function Preview() {
                 }
             </Box>
             <MoreActions file={preview} />
+            <Details type={preview.type} createdAt={preview.createdAt} size={preview.size} />
         </Box>
     )
 }

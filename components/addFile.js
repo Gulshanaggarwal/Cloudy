@@ -18,6 +18,13 @@ const Input = styled('input')({
 const supportedFileTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif", "application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/msword"];
 const MAX_FILE_SIZE = 10485760   // 10bytes;
 
+function shortenBytes(n) {
+    const k = n > 0 ? Math.floor((Math.log2(n) / 10)) : 0;
+    const rank = (k > 0 ? 'KMGT'[k - 1] : '') + 'b';
+    const count = Math.floor(n / Math.pow(1024, k));
+    return count + rank;
+}
+
 export default function AddFile({ currentFolder }) {
 
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -41,6 +48,8 @@ export default function AddFile({ currentFolder }) {
         }
 
         files.forEach(async (file) => {
+            const size = shortenBytes(file.size);
+            console.log(size);
             try {
                 const response = await appwrite.storage.createFile(process.env.NEXT_PUBLIC_APPWRITE_STORAGE_BUCKETID, 'unique()', file);
                 await addDoc(collection(db, "files"), {
@@ -49,8 +58,8 @@ export default function AddFile({ currentFolder }) {
                     userId: isUser.$id,
                     folderId: currentFolder.id,
                     type: file.type,
+                    size,
                     createdAt: serverTimestamp(),
-                    bookmark: false
                 })
             } catch (error) {
                 console.log(error);

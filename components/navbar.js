@@ -2,7 +2,6 @@ import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { LocalContext } from '../contexts/LocalContextProvider';
 import { useContext, useState } from 'react';
 import Login from './login';
 import Signup from './signup';
@@ -12,13 +11,11 @@ import { useRouter } from 'next/router'
 import appwrite from "../appwrite/appwrite"
 import Link from 'next/link'
 import { AuthContext } from '../contexts/AuthContext';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
 
 
 export default function Navbar() {
 
-    const { dispatch } = useContext(LocalContext);
     const isUser = useContext(AuthContext);
     const router = useRouter();
 
@@ -42,12 +39,6 @@ export default function Navbar() {
         }
     }
 
-    const callDrawer = () => {
-        dispatch({
-            type: "handleDrawer",
-            payload: true
-        })
-    }
     return (
         <Box sx={{
             display: 'flex',
@@ -57,10 +48,7 @@ export default function Navbar() {
             padding: '1rem',
             flex: '0 1 auto',
         }}>
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem' }}>
-                {isUser && <MenuOutlinedIcon onClick={callDrawer} sx={{ color: 'primary.main', cursor: 'pointer' }} fontSize="large" />}
-                <Typography variant="h4" component="h1" sx={{ color: 'common.white' }}>G-drive</Typography>
-            </Box>
+            <Typography variant="h4" component="h1" sx={{ color: 'common.white' }}>G-drive</Typography>
             {
                 !isUser && <Stack direction="row" spacing={2}>
                     <Button variant="text" onClick={() => dispatch({

@@ -1,5 +1,4 @@
 import { Divider, Menu, MenuItem } from "@mui/material";
-import StarRateSharpIcon from '@mui/icons-material/StarRateSharp';
 import LinkIcon from '@mui/icons-material/Link';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
@@ -7,6 +6,7 @@ import { useContext } from "react";
 import { LocalContext } from "../contexts/LocalContextProvider";
 import { AddToast } from "./resuables/toast";
 import { ToastContext } from "../contexts/ToastContext";
+import Link from "next/link";
 
 
 
@@ -29,6 +29,14 @@ export default function MoreActions({ file }) {
         AddToast("info", "Copied to clipboard", toastDispatch);
     }
 
+    const callDrawer = () => {
+        handleClose();
+        dispatch({
+            type: "handleDrawer",
+            payload: true
+        })
+    }
+
     return (
         <Menu id="more-actions-menu"
             sx={{ right: '3rem' }}
@@ -42,19 +50,19 @@ export default function MoreActions({ file }) {
                 <LinkIcon />
                 Get Link
             </MenuItem>
-            <MenuItem sx={{ gap: '1rem' }}>
-                <StarRateSharpIcon />
-                Add Star
-            </MenuItem>
-            <MenuItem sx={{ gap: '1rem' }}>
+            <MenuItem onClick={callDrawer} sx={{ gap: '1rem' }}>
                 <InfoOutlinedIcon />
                 Details
             </MenuItem>
             <Divider />
-            <MenuItem sx={{ gap: '1rem' }}>
-                <OpenInNewOutlinedIcon />
-                open in new window
-            </MenuItem>
+            <Link href={file.href}>
+                <a target="_blank">
+                    <MenuItem sx={{ gap: '1rem' }}>
+                        <OpenInNewOutlinedIcon />
+                        open in new window
+                    </MenuItem>
+                </a>
+            </Link>
         </Menu>
     )
 }
