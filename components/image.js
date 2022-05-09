@@ -12,7 +12,7 @@ export default function ImageComp({ url, alt }) {
                 src={url}
                 alt={alt}
                 width="200"
-                height="200"
+                height="500"
             />
         </Box>
     )

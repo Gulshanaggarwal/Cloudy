@@ -18,7 +18,7 @@ export default function BreadCrumb({ currentFolder }) {
                 path.flat().length > 0 && path.map((folder, index) => (
                     <Link key={index} href={folder.id ? `/folder/${folder.id}` : '/dashboard'}>
                         <Box component="a" sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-                            <FolderIcon />
+                            <FolderIcon color='primary' />
                             <Typography sx={{ margin: '0 0.2rem' }} variant="p" component="p">{folder.folderName}</Typography>
                         </Box>
                     </Link>
@@ -27,7 +27,7 @@ export default function BreadCrumb({ currentFolder }) {
             {
                 currentFolder && (
                     <Box component="a" sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
-                        <FolderIcon />
+                        <FolderIcon color='primary' />
                         <Typography sx={{ margin: '0 0.2rem' }} variant="p" component="p">{currentFolder.folderName}</Typography>
                     </Box>
                 )

@@ -2,7 +2,7 @@ import { Menu, MenuItem } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { LocalContext } from "../contexts/LocalContextProvider";
 import { useContext } from "react";
-import { doc, deleteDoc, where } from "firebase/firestore";
+import { query, collection, getDoc, where, deleteDoc, doc } from "firebase/firestore";
 import db from "../firebase/firebase"
 import { handleLoader } from "./resuables/loader";
 import { ToastContext } from "../contexts/ToastContext";
@@ -65,8 +65,16 @@ export default function DeleteMenu() {
         // If file
         if (deletee && deletee.fileId) {
             try {
-                await deleteDoc(doc(db, "files", where('fileId', "==", deletee.fileId)));
-                AddToast("success", "File deleted successfully", toastDispatch);
+                const d = doc(db, "files", where("fileId", "==", deletee.fileId))
+                const docSnap = await getDoc(d);
+                console.log(docSnap);
+                if (docSnap.exists()) {
+                    deleteDoc(docSnap.data());
+                    AddToast("success", "File deleted successfully", toastDispatch);
+                } else {
+
+                    console.log("No such document!");
+                }
             } catch (error) {
                 console.log(error);
                 AddToast("error", "Couldn't delete try again!", toastDispatch);

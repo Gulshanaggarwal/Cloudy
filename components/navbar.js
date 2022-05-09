@@ -11,11 +11,13 @@ import { useRouter } from 'next/router'
 import appwrite from "../appwrite/appwrite"
 import Link from 'next/link'
 import { AuthContext } from '../contexts/AuthContext';
+import { LocalContext } from '../contexts/LocalContextProvider';
 
 
 
 export default function Navbar() {
 
+    const { dispatch } = useContext(LocalContext);
     const isUser = useContext(AuthContext);
     const router = useRouter();
 
@@ -88,17 +90,14 @@ export default function Navbar() {
                         'aria-labelledby': 'basic-button',
                     }}
                 >
-                    <MenuItem><Link href="/dashboard">
+                    <MenuItem sx={{ borderLeft: router.pathname === "/dashboard" ? 3 : 0, borderLeftColor: 'primary.main', backgroundColor: 'grey.200' }}><Link href="/dashboard">
                         <a>Dashboard</a>
-                    </Link></MenuItem>
-                    <MenuItem><Link href="/myAccount">
-                        <a>My Account</a>
                     </Link></MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
             }
             <Login />
             <Signup />
-        </Box>
+        </Box >
     )
 }

@@ -105,11 +105,11 @@ export default function Preview() {
             <Box>
                 {(preview.type === "image/jpeg" || preview.type === "image/jpg" || preview.type === "image/png" || preview.type === "image/gif") && <ImageComp url={preview.href} alt={preview.fileName} />}
                 {
-                    (preview.type === "application/pdf" || preview.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || preview.type === "application/msword") && <Typography fontSize="large" sx={{ color: 'primary.main', textAlign: 'center' }} variant="p" component="h4">Sorry ! preview is not available for documents</Typography>
+                    (preview.type === "application/pdf" || preview.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || preview.type === "application/msword") && <Typography fontSize="large" sx={{ color: 'common.white', padding: '3rem 0', textAlign: 'center' }} variant="p" component="h4">Sorry 😞! preview is not available for documents</Typography>
                 }
             </Box>
             <MoreActions file={preview} />
-            <Details type={preview.type} createdAt={preview.createdAt} size={preview.size} />
+            <Details type={preview.type} createdAt={preview.createdAt} size={preview.size} fileName={preview.fileName} />
         </Box>
     )
 }

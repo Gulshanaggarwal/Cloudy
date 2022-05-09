@@ -24,7 +24,7 @@ export default function FolderBtn({ childFolder }) {
                 display: 'flex',
                 cursor: 'pointer'
             }} onContextMenu={(e) => handleContextMenu(e, "FOLDER", childFolder.id, dispatch)}>
-                <FolderIcon />
+                <FolderIcon color='primary' />
                 <Typography variant="p" component="p" sx={{
                     padding: '0 1rem'
                 }}>{childFolder.folderName}</Typography>

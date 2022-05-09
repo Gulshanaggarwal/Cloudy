@@ -25,8 +25,8 @@ export default function FileFolderDisplay({ folderId }) {
                 </Stack>
             </Box>
             {folderState.childFolders.length === 0 && folderState.childFiles.length === 0 && (
-                <Box sx={{ textAlign: 'center', border: 1, borderRadius: 2, padding: '4rem 1rem', margin: '1.5rem 0' }}>
-                    <Typography>
+                <Box sx={{ textAlign: 'center', border: 1, borderRadius: 2, padding: '4rem 1rem', margin: '1.5rem 0', borderColor: 'grey.600' }}>
+                    <Typography component="p" variant="p" sx={{ color: 'grey.600', }}>
                         Create a Folder or Upload a File to get started
                     </Typography>
                 </Box>

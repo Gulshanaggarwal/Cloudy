@@ -1,4 +1,4 @@
-import { Divider, Stack, SwipeableDrawer, Typography } from "@mui/material";
+import { Grid, Stack, SwipeableDrawer, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext } from "react";
 import { LocalContext } from "../contexts/LocalContextProvider";
@@ -7,11 +7,10 @@ import dayjs from "dayjs";
 
 
 
-export default function Details({ type, size, createdAt }) {
+export default function Details({ type, size, createdAt, fileName }) {
 
     const { drawer, dispatch } = useContext(LocalContext);
     const dateTime = dayjs(createdAt.seconds * 1000).format('DD MMMM YYYY, hh: mm: ss A');
-    console.log(createdAt);
 
 
     const closeDrawer = (e) => {
@@ -31,28 +30,28 @@ export default function Details({ type, size, createdAt }) {
 
     return (
         <SwipeableDrawer
-            sx={{ width: '400px' }}
             anchor="right"
             open={drawer}
             onClose={closeDrawer}>
-            <Box sx={{ padding: '2rem' }}>
-                <Divider textAlign="left">
-                    <Typography fontSize="large" component="h2" variant="h4">General Info</Typography>
-                </Divider>
+            <Box sx={{ padding: '2rem', backgroundColor: 'grey.800', height: '100vh', color: 'common.white' }}>
+                <Typography fontSize="large" component="h2" variant="h4">General Info</Typography>
                 <Stack spacing={3} sx={{ margin: '3rem 0' }}>
-                    <Stack direction="row" spacing={8 * 2}>
-                        <Typography>Type</Typography>
-                        <Typography>{type}</Typography>
-                    </Stack >
-
-                    <Stack direction="row" spacing={8 * 2}>
-                        <Typography>Size</Typography>
-                        <Typography>{size}</Typography>
-                    </Stack >
-                    <Stack direction="row" spacing={8 * 2}>
-                        <Typography>Created</Typography>
-                        <Typography>{dateTime}</Typography>
-                    </Stack >
+                    <Grid container>
+                        <Grid xs={6} item>Type</Grid>
+                        <Grid xs={6} item>{type}</Grid>
+                    </Grid >
+                    <Grid container>
+                        <Grid xs={6} item>Filename</Grid>
+                        <Grid xs={6} item>{fileName}</Grid>
+                    </Grid >
+                    <Grid container>
+                        <Grid xs={6} item>Size</Grid>
+                        <Grid xs={6} item>{size}</Grid>
+                    </Grid >
+                    <Grid container>
+                        <Grid xs={6} item >Created</Grid>
+                        <Grid xs={6} item>{dateTime}</Grid>
+                    </Grid >
                 </Stack>
             </Box>
         </SwipeableDrawer>
