@@ -60,7 +60,7 @@ export default function Login() {
 
     return loginWindow && (
         <Box sx={{ width: "100%", height: '100vh', backgroundColor: 'modal.main', position: 'fixed', top: '0', left: '0', zIndex: 'modal', padding: '7rem 1rem' }}>
-            <Container maxwidth="sm" sx={{
+            <Container sx={{
                 backgroundColor: 'secondary.main',
                 borderRadius: '10px',
                 padding: '1rem',

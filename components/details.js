@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { useContext } from "react";
 import { LocalContext } from "../contexts/LocalContextProvider";
 import dayjs from "dayjs";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
@@ -34,7 +35,8 @@ export default function Details({ type, size, createdAt, fileName }) {
             open={drawer}
             onClose={closeDrawer}>
             <Box sx={{ padding: '2rem', backgroundColor: 'grey.800', height: '100vh', color: 'common.white' }}>
-                <Typography fontSize="large" component="h2" variant="h4">General Info</Typography>
+                <CloseIcon onClick={closeDrawer} sx={{ float: 'right', cursor: 'pointer' }} />
+                <Typography sx={{ padding: '3rem 0 0 0', }} fontSize="large" component="h2" variant="h4">General Info</Typography>
                 <Stack spacing={3} sx={{ margin: '3rem 0' }}>
                     <Grid container>
                         <Grid xs={6} item>Type</Grid>

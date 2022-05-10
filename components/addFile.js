@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { IconButton } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { ToastContext } from "../contexts/ToastContext"
 import { AddToast } from "../components/resuables/toast"
 import appwrite from "../appwrite/appwrite"
@@ -27,7 +27,6 @@ function shortenBytes(n) {
 
 export default function AddFile({ currentFolder }) {
 
-    const [selectedFiles, setSelectedFiles] = useState([]);
     const [, toastDispatch] = useContext(ToastContext);
     const isUser = useContext(AuthContext);
 
@@ -36,17 +35,20 @@ export default function AddFile({ currentFolder }) {
         let files = [];
         let count = 0;
 
+        console.log(e.target.files)
+
         while (count < e.target.files.length) {
             if (supportedFileTypes.includes(e.target.files[count].type) && e.target.files[count].size <= MAX_FILE_SIZE) {
                 files.push(e.target.files[count]);
             }
             else {
-                AddToast("error", `${e.target.files[count].name} not supported`, toastDispatch)
+                AddToast("error", `${e.target.files[count].name} not supported`, toastDispatch);
+                AddToast("info", "Try to upload files again!", toastDispatch);
                 return;
             }
             count++;
         }
-
+        AddToast("info", files.length === 1 ? `File Uploading...` : `${files.length} files are uploading...`, toastDispatch);
         files.forEach(async (file) => {
             const size = shortenBytes(file.size);
             console.log(size);
@@ -62,9 +64,10 @@ export default function AddFile({ currentFolder }) {
                     createdAt: serverTimestamp(),
                 })
             } catch (error) {
-                console.log(error);
+                AddToast("error", `${file.name} couldn't upload try again!`, toastDispatch);
             }
         })
+        AddToast("success", "Uploaded Successfully", toastDispatch);
     }
 
 

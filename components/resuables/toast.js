@@ -36,9 +36,11 @@ export default function ToastBar() {
         <Snackbar
             anchorOrigin={{ vertical, horizontal }}
             open={true}
-            key={ele.id}>
+            key={ele.id}
+        >
             <Alert severity={ele.type} sx={{ width: '100%' }}>
                 {ele.text}
             </Alert>
-        </Snackbar>))
+        </Snackbar>
+    ))
 }

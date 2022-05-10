@@ -29,7 +29,7 @@ export default function File({ file }) {
         <Image
             src={file.href}
             alt={file.fileName}
-            width="200"
+            width="220"
             height="200"
             style={{ borderTopLeftRadius: '8px', borderTopRightRadius: '8px' }}
         >
@@ -44,7 +44,7 @@ export default function File({ file }) {
             {
                 file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && <ArticleIcon />
             }
-            <Typography variant="p" component="p">{file.fileName}</Typography>
+            <Typography variant="p" component="p">{file.fileName.length <= 20 ? file.fileName : `${file.fileName.substr(0, 18)}..`}</Typography>
             {hover && <Box sx={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', backgroundColor: 'modal.main', opacity: '0.8', borderRadius: 2, color: 'common.white', textAlign: 'center', padding: '4rem', fontSize: '1.5rem' }}>Preview</Box>}
         </Box>
     </Box>

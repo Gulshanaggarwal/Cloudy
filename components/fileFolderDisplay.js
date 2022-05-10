@@ -1,4 +1,4 @@
-import { Grid, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import AddFile from "./addFile";
 import AddFolder from "./addFolder";
 import BreadCrumb from "./breadCrumb";
@@ -16,7 +16,7 @@ export default function FileFolderDisplay({ folderId }) {
     const folderState = useFolder(folderId);
 
     return (
-        <Grid item sx={{ padding: '4rem' }} xs={10} >
+        <Box sx={{ padding: '4rem', overflowX: 'hidden', flex: '1 1 auto' }}>
             <Box sx={{ width: "100%", display: 'flex', justifyContent: 'space-between' }}>
                 <BreadCrumb currentFolder={folderState.folder} />
                 <Stack direction="row" spacing={2}>
@@ -35,7 +35,7 @@ export default function FileFolderDisplay({ folderId }) {
             {
                 folderState.childFiles.length > 0 && <Box>
                     <Typography sx={{ padding: '1rem 0' }} component="h5" variant="h6">Files</Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
                         {
                             folderState.childFiles.map((file, index) => (
                                 <File key={index} file={file} />
@@ -46,6 +46,6 @@ export default function FileFolderDisplay({ folderId }) {
             }
             <AddFolderModal currentFolder={folderState.folder} />
             <DeleteMenu />
-        </Grid>
+        </Box>
     )
 }
