@@ -30,6 +30,7 @@ export default function Login() {
     }
 
     const handleLogin = async () => {
+        setError(false);
         if (email.trim() === "") {
             return handleErrors("This is a required Field", "EMAIL");
         }

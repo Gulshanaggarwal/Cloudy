@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Cloudy
 
-## Getting Started
+Cloudy is a storage service which allows users to store their file & folders faster and securely. At Cloudy users can create folders and store their files smoothly. Cloudy is **superfast** at uploading your files, a user can upload multiple files at a time & It will take very less amount of time compared to other services because of [Appwrite](https://appwrite.io/) storage service.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Superfast file uploading(multiple files included)
+- Support file extensions- .jpg, .png, .gif, .txt, .pdf
+- Easy File Preview
+- File Download
+- File Link Copy
+- File & folder Delete(right click on a file or folder to delete)
+
+## Tech- Stack
+
+`NEXTJS`
+`Appwrite`
+`Firebase`
+`Material-UI`
+
+## We are already using Appwrite, then Firebase ?
+
+We are using Appwrite's Login, SignIn & Storage services but for **Database** we preferred Firebase. Reason of choosing Firebase is lack amount of support from Appwrite's database service, we have nested fields like array of objects or deep nested objects in our documents but Appwrite doesn't support these complex data structure. I opened a comment in discussion thread regarding the problem, check it out here - [comment](https://dev.to/gulshanaggarwal/comment/1o3oh)
+
+## Start Using Locally
+
+- Clone the Repo:
+
+  ```bash
+  git clone https://github.com/Gulshanaggarwal/Cloudy
+  ```
+
+- To run the development server:
+
+  ```bash
+  npm install
+  npm run dev
+  # or
+  yarn dev
+  ```
+
+- Install Appwrite & start docker instance, paste the project credentials in .env.local file & make sure permissions as well as file extensions (.jpg, .png, .gif, .txt, .pdf) are assigned.
+- Create a project at [Firebase](https://firebase.google.com/), paste the project credentials in .env.local file & make sure firestore(database) read write permissions are granted.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Environment Variable Setup
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Create a .env.local file at the root of the repo.
+- Now you need credentials from Appwrite & Firebase
+- Env variables you need -
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+  - **NEXT_PUBLIC_APPWRITE_PROJECTID**
+  - **NEXT_PUBLIC_APPWRITE_ENDPOINT**
+  - **NEXT_PUBLIC_APPWRITE_STORAGE_BUCKETID**
+  - **NEXT_PUBLIC_FIREBASE_API_KEY**
+  - **NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN**
+  - **NEXT_PUBLIC_FIREBASE_PROJECT_ID**
+  - **NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET**
+  - **NEXT_PUBLIC_FIREBASE_MESSAGE_SENDER_ID**
+  - **NEXT_PUBLIC_FIREBASE_APP_ID**
+  - **NEXT_PUBLIC_FIREBASE_MESAUREMENT_ID**
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Once you are done, restart your development server & use the service.
