@@ -32,7 +32,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await appwrite.account.deleteSession("current");
-      router.replace("/");
+      window.location.replace("/");
     } catch (error) {
       console.log(error);
     }

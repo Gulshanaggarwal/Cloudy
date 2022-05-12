@@ -7,6 +7,7 @@ import mockup from "./../assets/mockups.png";
 import iphone from "./../assets/iphone.png";
 import mac from "./../assets/mac.png";
 import { Button, Container, Typography } from "@mui/material";
+import Link from "next/link"
 
 export default function Home() {
   const isUser = useContext(AuthContext);
@@ -41,7 +42,7 @@ export default function Home() {
               Secure Cloud Storage and Communication Privacy by Design
             </Typography>
             <Button variant="contained" color={"primary"}>
-              Signup Now
+              <Link href="/dashboard">Go to Dashboard</Link>
             </Button>
           </Container>
           <Image src={mockup} alt={"heroImage"} className={style.heroImage} />
@@ -70,9 +71,6 @@ export default function Home() {
             <Typography variant="h4" marginBottom={"20px"}>
               Secure and Easy File Sharing
             </Typography>
-            <Button variant="contained" color={"primary"}>
-              Get started
-            </Button>
           </Container>
           <Image src={mockup} alt={"heroImage"} className={style.heroImage} />
         </Container>
